@@ -22,9 +22,11 @@ impl Ship {
 
         for _ in 0..times {
             let from_stack = &mut self.stacks[from];
+            // let to_stack = &mut self.stacks[to]; // ERROR!!!
+
             let moved_cargo = from_stack.pop();
 
-            let to_stack = &mut self.stacks[to];
+            let to_stack = &mut self.stacks[to]; // HERE IS VALID
             match moved_cargo {
                 Some(cargo) => to_stack.push(cargo),
                 None => panic!("No cargo!!!"),
