@@ -2,6 +2,11 @@ use derive_getters::Getters;
 use lazy_static::lazy_static;
 use regex::Regex;
 
+lazy_static! {
+    static ref PARSE_MOVE_CARGO_FROM_TO_DESTINY: Regex =
+        Regex::new(r"^move (?P<times>\d+) from (?P<from>\d+) to (?P<to>\d+)$").unwrap();
+}
+
 #[derive(Getters)]
 pub struct Procedure {
     pub times: usize,
@@ -11,12 +16,7 @@ pub struct Procedure {
 
 impl Procedure {
     pub fn from_str(input: &str) -> Self {
-        lazy_static! {
-            static ref RE: Regex =
-                Regex::new(r"^move (?P<times>\d+) from (?P<from>\d+) to (?P<to>\d+)$").unwrap();
-        }
-
-        let captures = RE.captures(input).unwrap();
+        let captures = PARSE_MOVE_CARGO_FROM_TO_DESTINY.captures(input).unwrap();
         let times: usize = captures.name("times").unwrap().as_str().parse().unwrap();
         let from: usize = captures.name("from").unwrap().as_str().parse().unwrap();
         let to: usize = captures.name("to").unwrap().as_str().parse().unwrap();

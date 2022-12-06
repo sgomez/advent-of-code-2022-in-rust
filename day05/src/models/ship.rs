@@ -10,7 +10,7 @@ pub struct Ship {
 
 impl Ship {
     pub fn from_vec(input: Vec<&str>) -> Self {
-        let stacks = input.iter().map(|stack| Stack::from_str(stack)).collect();
+        let stacks = input.into_iter().map(Stack::from_str).collect();
 
         Ship { stacks }
     }
